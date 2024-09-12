@@ -3,6 +3,6 @@ class RoomSettingController < ApplicationController
     user = current_user
     @room = Room.find(user.room_id)
 
-    @url = request.referer
+    @url = root_url
   end
 end

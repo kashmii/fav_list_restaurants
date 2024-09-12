@@ -26,9 +26,12 @@
       </div>
     <% end %>
 
-    <div class="d-flex justify-content-center">
-      <%= link_to "入室申請へ(予定)", '#', class: "btn btn-clear border mb-3" %>
-    </div>
+    <% if current_user.request_allowed == true %>
+      <div class="d-flex justify-content-center">
+        <%= link_to "メンバー申請へ", new_member_request_path, class: "btn btn-clear border mb-3" %>
+      </div>
+    <% end %>
+
 
     <div class="d-flex justify-content-center">
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-dark mb-3" %>

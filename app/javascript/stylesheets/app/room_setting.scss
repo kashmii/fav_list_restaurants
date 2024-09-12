@@ -1,0 +1,7 @@
+.flow-box {
+  width: 80%;
+
+  @include media-breakpoint-up(md) {
+      width: 60%;
+  }
+}

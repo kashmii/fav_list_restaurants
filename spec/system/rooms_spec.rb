@@ -14,10 +14,11 @@ RSpec.describe "Rooms", type: :system do
         sign_in user
         visit root_path
         # ログイン後の遷移先に、下記のボタンがある
-        expect(page).to have_button '部屋作成へ'
+        expect(page).to have_content '部屋作成へ'
 
         # 部屋を作成すると、その部屋のページに遷移する
-        click_button '部屋作成へ'
+
+        click_on '部屋作成へ'
         fill_in 'room[name]', with: 'おしゃれな居酒屋'
         click_button '部屋を作成する'
         expect(page).to have_text 'おしゃれな居酒屋'

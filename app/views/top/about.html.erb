@@ -29,14 +29,14 @@
     <% unless @user.request_allowed == false %>
       <p class="text-center">招待されてきた方はこちら</p>
       <div class="d-flex justify-content-center mb-5">
-        <%= button_to "入室申請する", member_requests_path(params: {url: session[:previous_url]}), method: :post, class: "btn btn-success" %>
+        <%= button_to "メンバー申請する", member_requests_path(params: {url: session[:previous_url]}), method: :post, class: "btn btn-success" %>
       </div>
     <% else %>
       <!-- この中でさらにif文で、許可が出たら部屋画面に行けるボタンを表示 -->
       <p class="text-center">返答があるまで少々お待ち下さいm(_ _)m</p>
       <p class="text-center">申請を取り消す場合はこちら</p>
       <div class="d-flex justify-content-center mb-5">
-        <%= button_to "申請を取り消す", member_requests_path, method: :delete, class: "btn btn-secondary" %>
+        <%= button_to "申請を取り消す", member_request_path(@member_requests), method: :delete, class: "btn btn-secondary" %>
       </div>
       <div class="d-flex justify-content-center mb-5">
         <%= link_to "トップページへ", root_path, class: "btn btn-secondary" %>
@@ -51,8 +51,7 @@
   <% end %>
 
   <div class="text-center">
-    <h5 class="mb-4">このアプリでできること</h5>
-    
+    <h5 class="mt-5 mb-4">このアプリでできること</h5>
     <p>・友だちや自分が投稿した飲食店情報を見れる</p>
     <p>・友だちと自分だけが入れる「部屋」を作れる</p>
     <p>・投稿を見れるのは「部屋」のメンバーだけ！</p>

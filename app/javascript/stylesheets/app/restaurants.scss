@@ -1,0 +1,33 @@
+.basic-info {
+  border: 1px solid #000;
+}
+
+.report-link {
+  background-color: bisque;
+  width: 80%;
+  text-align: center;
+
+  a {
+    width: 100%;
+  }
+}
+
+.edit-button {
+  color: black;
+}
+
+.required:after {
+  content: " *";
+}
+
+.tel:after {
+  content: " (ハイフンなし)";
+}
+
+.img:after {
+  content: " (1枚まで)";
+}
+
+.submit {
+  margin: 40px 0;
+}

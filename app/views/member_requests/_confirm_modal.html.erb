@@ -1,0 +1,19 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span></span>
+      <h5 class="modal-title">申請先はこちらでよろしいですか？</h5>
+      <button class="close" data-dismiss="modal">ｘ</button>
+    </div>
+    <div class="modal-body">
+      <span class="modal-inline-text">部屋名： <%= @room.name %></span><br>
+      <span class="modal-inline-text">オーナー：  <%= @room_founder.name %></span>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn m-0" data-dismiss="modal">
+        キャンセル
+      </button>
+      <%= link_to "申請する", member_requests_path(room_token: @room_token), method: :post, class: "btn btn-success" %>
+    </div>
+  </div>
+</div>

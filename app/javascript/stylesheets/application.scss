@@ -1,1 +1,10 @@
-@import '~bootstrap/scss/bootstrap.scss';
+@import '~bootstrap/scss/bootstrap';
+
+@import "./app/layouts/error_messages";
+@import "./app/restaurants/reports";
+@import "./app/top";
+@import "./app/restaurants";
+@import "./app/room_setting";
+@import "./app/member_requests";
+@import "./app/users";
+@import "./devise/registrations/new";

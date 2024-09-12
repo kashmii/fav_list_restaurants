@@ -1,24 +1,48 @@
 class MemberRequestsController < ApplicationController
   before_action :set_request, only: %i(allow deny)
-  before_action :get_user, only: %i(allow deny)
+  before_action :get_user, only: %i(allow deny create)
+
+  def new
+    if current_user.request_allowed == false
+      redirect_to about_path, notice: 'メンバー申請できない状態です'
+    end
+  end
+
+  def check
+    if params[:room_token].blank?
+      redirect_to new_member_request_path, notice: 'idが入力されていません' 
+    else
+      if current_user.request_allowed == true
+        get_user
+        @room = Room.find_by(token: params[:room_token])
+        if @room.nil?
+          redirect_to new_member_request_path, notice: 'idが間違っています'
+        else
+          @room_token = params[:room_token]
+          @room_founder = User.find(@room.room_founder.founder_id)
+        end
+      end
+    end
+  end
 
   def create
-    if current_user.request_allowed == true
-      get_user
-      get_room_and_token
+    if params[:room_token].blank?
+      redirect_to new_member_request_path, notice: 'idが入力されていません' 
+    else
+      @room = Room.find_by(token: params[:room_token])
       request = MemberRequest.new(room_id: @room.id, appricant_id: @user.id)
       MemberRequest.transaction do
-
         request.save!
         # 部屋製作者を取得してnotificationテーブルのvisited_idに設定する
-        # 消す
-        room_founder = User.find_by(room_id: @room.id)
+        founder_id = RoomFounder.find_by(room_id: @room.id).founder_id
+        room_founder = User.find(founder_id)
         room_founder.create_notification_member_request!(current_user, request)
         @user.update!(request_allowed: false)
-
-      end
         # flash出す
-      redirect_to about_path, notice: '入室申請しました'
+        redirect_to about_path, notice: 'メンバー申請しました'
+      rescue
+        redirect_to new_member_request_path, notice: 'エラーが発生しました'
+      end
     end
   end
 
@@ -33,7 +57,7 @@ class MemberRequestsController < ApplicationController
       @user.update!(request_allowed: true)
 
     end
-    redirect_to about_path, notice: '入室申請を取り消しました'
+    redirect_to about_path, notice: 'メンバー申請を取り消しました'
   end
 
   def allow
@@ -50,19 +74,6 @@ class MemberRequestsController < ApplicationController
 
     def get_user
       @user = current_user
-    end
-
-    def request_params
-      params.require(:url)
-    end
-
-    def get_room_and_token
-      if Rails.env.production?
-        room_token = request_params.gsub('https://restaurants-we-know.herokuapp.com/rooms/', '')
-      elsif Rails.env.development?
-        room_token = request_params.gsub('http://localhost:3000/rooms/', '')
-      end
-      @room = Room.find_by(token: room_token)
     end
 
     def set_request

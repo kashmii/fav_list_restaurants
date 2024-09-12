@@ -24,7 +24,7 @@ class TopController < ApplicationController
 
   def about
     # リクエスト申請済だったら、ビューにmember_requestsの変数を渡す
-    if @user != nil && @user.request_allowed == false
+    if @user.present? && @user.request_allowed == false
       @member_requests = MemberRequest.find_by(appricant_id: @user.id)
     end
   end

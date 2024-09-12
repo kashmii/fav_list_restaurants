@@ -1,0 +1,31 @@
+.modal {
+  background-color: #00000050;
+}
+
+.modal-dialog {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  overflow: auto;
+
+  @media (max-width: 768px) {
+    min-height: calc(100vh - 20px);
+  }
+
+  .modal-content {
+    .modal-header {
+      // padding-bottom: 0;
+
+      .modal-title {
+        font-weight: bold;
+      }
+    }
+
+    .modal-footer {
+      // padding-top: 0;
+    }
+  }
+}
+
+

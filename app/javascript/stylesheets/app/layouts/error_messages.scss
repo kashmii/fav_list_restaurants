@@ -1,0 +1,18 @@
+.error {
+  color:#262626; 
+  background:#FFEBE8;
+  text-align: center;
+  border:2px solid #990000 ;
+  padding:12px; font-weight:850;
+  margin: 30px;
+  width: 40%;
+  
+  @include media-breakpoint-down(md) {
+    width: 80%;
+    margin-bottom: 0;
+  }
+
+  ul {
+    margin: 0 23px 0 0;
+  }
+}
